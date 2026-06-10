@@ -4,9 +4,19 @@ USE employeesdb;
 -- Toon de naam, voornaam, salaris, de departementsnaam, alsook het maximumsalaris dat de werknemer in deze functie (job) kan verdienen.
 
 -- #STAP 1 toon alle salarys en de werkenemers betaalde werknemer.
-SELECT LAST_NAME,FIRST_NAME , JOB_ID, SALARY, max(SALARY) 
-FROM employees
-GROUP BY FIRST_NAME, LAST_NAME, JOB_ID, SALARY;
+SELECT e.LAST_NAME, e.FIRST_NAME, e.SALARY, d.DEPARTMENT_NAME, j.Max_SALARY
+FROM employees e 
+JOIN departments d ON e.DEPARTMENT_ID = d.DEPARTMENT_ID
+JOIN jobs j ON e.JOB_ID = j.JOB_ID
+WHERE d.MANAGER_ID = 
+(
+	SELECT EMPLOYEE_ID
+    FROM employees
+    WHERE LAST_NAME = 'Mourgos'
+)
+
+ORDER BY e.SALARY DESC
+LIMIT 1;
 -- ik heb geprobeert
 
 SELECT * 
